@@ -82,7 +82,4 @@ window.onload = function (params) {
 
 }
 
-
-
-
 //

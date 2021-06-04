@@ -42,8 +42,8 @@
                             <div class="card rounded shadow-sm">
                                 <div class="card-body rounded p-3 bg-light">
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-3 col-sm-3">
-                                            <img src="../../{{ $video->thumbnail }}" width="200px; height:180px;" class="card-img-left mr-2" alt="...">
+                                        <div class="col-lg-3 col-md-3 col-sm-3" style="">
+                                            <img src="{{ asset($video->thumbnail) }}" width="160px; height:180px;" class="card-img-left mr-2" alt="...">
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6">
                                             <h6>

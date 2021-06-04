@@ -23,7 +23,7 @@
 
 
 <!-- ---------------------Carousel---------------------- -->
-<div class="container-fluid m-0 p-0">
+{{-- <div class="container-fluid m-0 p-0">
     <div class="row m-0 p-0">
         <div class="col-lg-12 p-0">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -53,7 +53,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- ---------------------/Carousel---------------------- -->
 
     <!-- ---------------------Slider---------------------- -->
@@ -126,6 +126,8 @@
             </div>
         </div>
     </div>
+
+
 
 
     @endsection

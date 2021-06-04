@@ -18,7 +18,7 @@
 
 @section('section')
 
-<form action="{{ route('section.create.save') }}" method="post">
+<form action="{{ route('section.create.save') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="container pt-3 mt-5">
         <div class="row my-3">

@@ -89,25 +89,35 @@ class contentController extends Controller
 
     public function generateVideo(Request $req) {
 
-        foreach( $_FILES["thumbnail"] as $key ) {
-            print_r( $key );
-            echo "<br>";
-        }
+        // foreach( $_FILES["thumbnail"] as $key ) {
+        //     print_r( $key );
+        //     echo "<br>";
+        // }
 
-        exit(0);
+        // exit(0);
+        // dump( request()->file("video") );
         // dd( request()->file("thumbnail") );
 
-        $videoName = $req->file("video")->store("/public/videos");
-        $thumbnail = $req->file("thumbnail")->store("/public/thumbnail");
-        // dd($thumbnail );
+        if ( is_array($req->file("thumbnail")) ) {
+            $thumbnail = $req->file("thumbnail")[0]->store("public/thumbnail");
+        } else {
+            $thumbnail = $req->file("thumbnail")->store("public/thumbnail");
+        }
+        if ( is_array($req->file("video")) ) {
+            $videoName = $req->file("video")[0]->store("public/videos");
+        } else {
+            $videoName = $req->file("video")->store("public/videos");
+        }
+
+        // dd( $videoName );
         $isCreated = Video::create([
             "title" => $req->title,
             "slug" => $req->title,
             "description" => $req->description,
             "genre" => $req->genre,
             "type" => $req->type,
-            "videoPath" => "storage/videos/" . explode("public/videos/",$videoName)[1],
-            "thumbnail" => "storage/thumbnail/" . explode("public/thumbnail/", $thumbnail)[1],
+            "videoPath" =>  str_replace("public/","storage/",$videoName),
+            "thumbnail" => str_replace("public/","storage/",$thumbnail),
             "user_id" => auth()->user()->id
         ]);
 

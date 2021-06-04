@@ -59,7 +59,7 @@ Route::post("/profile/edit/save", function (Request $req) {
         return back();
     }
 
-    // dd("storage/profilepics/" . explode("public/profilepics/", $profilePic)[1]);
+    // dd($req->file("profilepic"));
     if ($req->file("profilepic")) {
         $profilePic = $req->file("profilepic")->store("public/profilepics");
         $r = auth()->user()->update([
@@ -68,7 +68,7 @@ Route::post("/profile/edit/save", function (Request $req) {
             "email" => $req->email,
             "age" => $req->age,
             "gender" => $req->gender,
-            "profilepic" => "storage/profilepics/" . explode("public/profilepics/", $profilePic)[1],
+            "profilepic" => "/storage/app/" . $profilePic,
             "password" => bcrypt($req->password)
         ]);
     } else {

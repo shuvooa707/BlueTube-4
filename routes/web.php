@@ -31,7 +31,6 @@ use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
 
-
 Route::get('/',[
     "uses" => "HomeController@show"
 ]);
@@ -287,16 +286,20 @@ Route::get("/section/{sid}", function ($sid = null) {
     if (!$sid) {
         return redirect("/");
     }
-    return view("section.show", [
-        "section" => Section::find($sid)
-    ]);
+    if ( !is_nan($sid) ) {
+        return view("section.show", [
+            "section" => Section::find($sid)
+        ]);
+    } else {
+        return view("section.create");
+    }
+
 })->name("section");
 
 
 Route::group(["middleware"=>["admin", "auth"]], function() {
 
     Route::get("/section/create", function() {
-
         return view("section.create");
     })->name("section.create");
 
@@ -593,4 +596,60 @@ Route::get("notification", [
 ])->middleware("auth")->name("notification");
 
 
+
+Route::get("headers", function(){
+    dd($_SERVER);
+});
+
+
+
+Route::get("/comp", function(){
+    $arr = array(
+        'a' => array(
+            'b' => array(
+                'c' => 100,
+            )
+        ),
+        'x' => array(),
+    );
+
+
+    var_dump($arr);
+
+
+
+    function run(&$arr, $source, $value)
+    {
+
+        $targetKeys = array_keys($arr);
+
+        // dump($targetKeys);
+
+
+        $sourceKeys = array_keys($source);
+        $targetLen = count($targetKeys);
+        $sourceLen = count($sourceKeys);
+
+
+        if ($sourceLen == 1) {
+            $arr[array_shift($source)] = $value;
+            return $arr;
+        } else {
+            $tmpKey = array_shift($source);
+            if( isset($arr[$tmpKey]) ) {
+                $tmp = &$arr[$tmpKey];
+            } else {
+                $arr[$tmpKey] = [];
+                $tmp = &$arr[$tmpKey];
+            }
+            return run($tmp, $source, $value);
+        }
+    }
+
+    run($arr, ["a"], [777,888,999]);
+    var_dump($arr);
+});
+
 //
+
+
